@@ -1,13 +1,13 @@
 [package]
 name = "osr-rs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["remeliah <anoletenu@gmail.com>"]
 description = "rust library for osu! replay writer/parser."
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/remeliah/osr-rs"
-keywords = ["rust", "osu", "replay-parser"]
+keywords = ["rust", "osu", "replay-parser", "osu-lazer"]
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }

@@ -110,3 +110,14 @@ pub fn compress_replay_data(data: &[ReplayData]) -> Result<Vec<u8>, CompressionE
 
     Ok(compressed)
 }
+
+pub fn compress_score_info(score_info: &ScoreInfo) -> Result<Vec<u8>, CompressionError> {
+    let json_bytes = serde_json::to_vec(score_info)
+        .map_err(|e| CompressionError(format!("Serializing JSON: {}", e)))?;
+
+    let mut compressed = Vec::new();
+    lzma_compress(&mut Cursor::new(&json_bytes), &mut compressed)
+        .map_err(|e| CompressionError(format!("Compressing: {}", e)))?;
+
+    Ok(compressed)
+}

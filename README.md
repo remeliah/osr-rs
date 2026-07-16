@@ -45,11 +45,46 @@ let bytes = write_replay(&replay)?;
 let bytes = replay.write_bytes()?;
 ```
 
+### Mod System (Lazer)
+
+The library provides a comprehensive mod system with over 70 osu!lazer mods and typed settings.
+
+```rust
+use osr_rs::{
+    ModAcronym, Replay, simple_mod, double_time, RateAdjustSettings, 
+    difficulty_adjust, DifficultyAdjustSettings
+};
+
+// Simple mods (no settings)
+let hd = simple_mod(ModAcronym::HD);
+
+// Mods with settings
+let dt = double_time(RateAdjustSettings {
+    speed_change: Some(1.5),
+    adjust_pitch: Some(true),
+});
+
+let da = difficulty_adjust(DifficultyAdjustSettings {
+    circle_size: Some(9.0),
+    approach_rate: Some(10.0),
+    overall_difficulty: None,
+    drain_rate: None,
+    extended_limits: Some(true),
+});
+
+// Apply to replay
+let mut replay = Replay::new();
+if let Some(ref mut score_info) = replay.score_info {
+    score_info.mods = vec![hd, dt, da];
+}
+```
+
 ## Structure
 
 - `src/consts.rs` - Constants (play modes, key states, lazer hit results)
 - `src/structs.rs` - Data structures (Replay, ReplayData, ScoreInfo, etc.)
 - `src/binary.rs` - Binary I/O functions (little-endian, ULEB128)
+- `src/mods.rs` - Lazer mod system with typed settings
 - `src/replay.rs` - Core parse/write API
 - `src/compression.rs` - LZMA compression/decompression
 - `src/utils.rs` - Time conversion and lifebar parsing

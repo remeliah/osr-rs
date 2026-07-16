@@ -26,12 +26,14 @@ use chrono::{DateTime, Utc};
 mod binary;
 mod compression;
 mod consts;
+mod mods;
 mod replay;
 mod structs;
 mod utils;
 
-pub use compression::{compress_replay_data, decompress_replay_data, decompress_score_info};
+pub use compression::{compress_replay_data, compress_score_info, decompress_replay_data, decompress_score_info};
 pub use consts::*;
+pub use mods::*;
 pub use replay::{parse_replay, write_replay, Error};
 pub use structs::{ScoreInfo, ModInfo, ReplayData, KeyPressed, LifeBarGraph};
 pub use utils::{parse_lifebar, serialize_lifebar, ticks_from_time, time_from_ticks};

@@ -149,5 +149,13 @@ pub fn write_replay(replay: &Replay) -> Result<Vec<u8>, Error> {
 
     buf.write_all(&write_u64(replay.online_id as u64))?;
 
+    if let Some(ref score_info) = replay.score_info {
+        let compressed = compression::compress_score_info(score_info)?;
+        buf.write_all(&write_i32(compressed.len() as i32))?;
+        buf.write_all(&compressed)?;
+    } else {
+        buf.write_all(&write_i32(0))?;
+    }
+
     Ok(buf)
 }
